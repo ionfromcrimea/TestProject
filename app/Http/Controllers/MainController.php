@@ -69,6 +69,6 @@ class MainController extends Controller
 //            $user_values = null;
         }
         return view('index', compact('users', 'cities', 'user', 'city', 'providers'));
-//        , 'avg_values', 'user_values' - лишние!
+//        , 'avg_values', 'user_values' - лишние!?
     }
 }
