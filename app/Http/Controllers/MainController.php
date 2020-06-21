@@ -130,6 +130,7 @@ class MainController extends Controller
 //            dd($request->file('image'));
 //            dd($request->file('image')->getClientOriginalName());
             $user = User::find($request['users']);
+//            dd($user);
             $posts = Post::where('id_reseiver', '=', $user->id)->where('delivered', '=', 0)->get();
 
 //            $filename = $request->image;
@@ -168,6 +169,7 @@ class MainController extends Controller
     public function st2dnld($id)
     {
         $post = Post::find($id);
+        $post->update(['delivered' => 1]);
 //        dd($post);
         return Storage::download($post->filename, $post->realname);
     }

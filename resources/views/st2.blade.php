@@ -54,21 +54,23 @@
                     <th>Отправитель</th>
                     <th>Имя файла</th>
                     <th>Размер</th>
-                    <th>Действия</th>
+                    <th>Загрузка (открыть - для .txt и .jpeg)</th>
                 </tr>
                 @foreach($posts as $post)
                     <tr>
                         <td>{{ $post->id }}</td>
-                        <td>{{ $user->name }}</td>
+                        <td>{{ $post->sendername() }}</td>
                         <td>{{ $post->realname }}</td>
                         <td>{{ $post->size }}</td>
                         <td>
                             <div class="btn" role="group">
                                 {{--                                <form action="{{ route('file.delete', $post) }}" method="POST">--}}
-                                <a class="btn btn-success" type="button"
-                                   href="{{ route('file.show', [$post->id]) }}">Открыть</a>
                                 <a class="btn btn-warning" type="button"
                                    href="{{ route('file.download', [$post->id]) }}">Загрузить</a>
+                                @if($post->ext == "txt" or $post->ext == "jpeg")
+                                    <a class="btn btn-success" type="button"
+                                       href="{{ route('file.show', [$post->id]) }}">Открыть</a>
+                                @endif
                                 {{--                                    @csrf--}}
                                 {{--                                    @method('DELETE')--}}
                                 {{--                                    <input class="btn btn-danger" type="submit" value="Удалить"></form>--}}

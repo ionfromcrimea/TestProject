@@ -13,6 +13,16 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/jquery.maskedinput.js"></script>
     <script src="/js/jquery.inputmask.js"></script>
+    <style>
+        /*h1 {*/
+        /*    font-family: 'Times New Roman', Times, serif; !* Гарнитура текста *!*/
+        /*    font-size: 250%; !* Размер шрифта в процентах *!*/
+        /*}*/
+        pre {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11pt; /* Размер шрифта в пунктах */
+        }
+    </style>
 </head>
 <body>
 

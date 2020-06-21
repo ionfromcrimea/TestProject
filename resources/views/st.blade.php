@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" xmlns:font-size="http://www.w3.org/1999/xhtml">
         <form name="storagetest" method="post" enctype="multipart/form-data" action="{{route('st')}}">
             @csrf
             <div class="row">
@@ -62,29 +62,12 @@
             <div class="col-md-2">
                 <pre>Тип - {{$extension}}</pre>
             </div>
-            <div class="col-md-2">
-                <pre>Размер - {{$size}}</pre>
+            <div class="col-md-3">
+                <pre>Размер (байт) - {{$size}}</pre>
             </div>
         </div>
         <br>
 
-        {{--        <div class="container">--}}
-        {{--            @foreach($providers as $provider)--}}
-        {{--                <div class="row">--}}
-        {{--                    <div class="col-md-2">--}}
-        {{--                        <h4>Средняя: {{$provider->avg_value($city)}}</h4>--}}
-        {{--                    </div>--}}
-        {{--                    <div class="col-md-4">--}}
-        {{--                        <h4>Провайдер - {{$provider->name}}</h4>--}}
-        {{--                    </div>--}}
-        {{--                    <div class="col-md-4">--}}
-        {{--                        <h4>Оценка пользователя--}}
-        {{--                            - @php for($i=0; $i < $provider->user_value($city, $user); $i++) echo "* "; @endphp</h4>--}}
-        {{--                        <br><br>--}}
-        {{--                    </div>--}}
-        {{--                </div>--}}
-        {{--            @endforeach--}}
-        {{--        </div>--}}
     @endif
 
 @endsection
