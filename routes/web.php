@@ -14,3 +14,5 @@
 //Route::get('/', 'MainConrtoller@index')->name('index');
 
 Route::match(['get','post'],'/', 'MainController@index')->name('index');
+
+Route::match(['get','post'],'/st', 'MainController@st')->name('st');

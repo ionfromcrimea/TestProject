@@ -4,17 +4,27 @@ namespace App\Http\Controllers;
 
 use App\City;
 //use App\Provider;
+use App\Post;
 use App\Provider;
 use App\User;
 //use App\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 //use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
+
         $users = User::get();
         $cities = City::get();
+
+//        $city = City::first();
+//        $providers = Provider::get();
+//        $city->providers()->sync($providers->pluck('id'));
+//        dd($city);
+
 //        dd($request->mobile);
 //        dd($_SERVER['HTTP_USER_AGENT']);
 
@@ -22,7 +32,7 @@ class MainController extends Controller
 //            $k = $city->id;
 //        dd($cities);
 
-        if( $request->isMethod('POST')) {
+        if ($request->isMethod('POST')) {
 // 1. Получить список провайдеров в городе
 //            dd($_SERVER);
             $user = User::find($request['users']);
@@ -32,9 +42,9 @@ class MainController extends Controller
 //            $providers = $providers->toArray();
 //            dd($providers);
 
-            foreach($providers as $prov) {
-            $prov->setAttribute('average', 0);
-            $prov->average = $prov->avg_value($city);
+            foreach ($providers as $prov) {
+                $prov->setAttribute('average', 0);
+                $prov->average = $prov->avg_value($city);
             }
             $providers = $providers->sortByDesc('average')->values();
 
@@ -60,8 +70,7 @@ class MainController extends Controller
 //                ->where('city_id', $city->id)
 //                ->get();
 //            dd($user_values, $user_values[1], $user_values[1]->value);
-        }
-        else {
+        } else {
             $user = null;
             $city = null;
             $providers = Provider::get();
@@ -70,5 +79,39 @@ class MainController extends Controller
         }
         return view('index', compact('users', 'cities', 'user', 'city', 'providers'));
 //        , 'avg_values', 'user_values' - лишние!?234
+    }
+
+    public function st(Request $request)
+    {
+        $users = User::get();
+        $user = '';
+        $filename = '';
+        $realname = '';
+        $extension = '';
+        $path = '';
+        $size = '';
+
+        if ($request->isMethod('POST')) {
+//            dd($request->file('image'));
+//            dd($request->file('image')->getClientOriginalName());
+            $user = User::find($request['users']);
+            $filename = $request->image;
+            $realname = $request->file('image')->getClientOriginalName();
+            $extension = $request->file('image')->extension();
+            $path = $request->file('image')->store('posts');
+            $size = Storage::size($path);
+//            dd($size, $extension);
+            $params['id_sender'] = 1;
+            $params['id_reseiver'] = $user->id;
+            $params['realname'] = $realname;
+            $params['filename'] = $path;
+            $params['size'] = $size;
+            $params['ext'] = $extension;
+//            $params['filename'] = $path;
+            Post::Create($params);
+
+        }
+            return view('st', compact('users', 'user', 'realname', 'filename', 'path', 'extension', 'size'));
+
     }
 }
