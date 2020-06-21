@@ -8,7 +8,7 @@ class Post extends Model
 
 {
     protected $fillable = [
-        'id_sender', 'id_reseiver', 'realname', 'filename', 'size', 'ext',
+        'id_sender', 'id_reseiver', 'realname', 'filename', 'size', 'ext', 'delivered',
     ];
 
 }

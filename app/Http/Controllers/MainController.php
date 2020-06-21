@@ -10,6 +10,7 @@ use App\User;
 //use App\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
 //use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
@@ -111,7 +112,64 @@ class MainController extends Controller
             Post::Create($params);
 
         }
-            return view('st', compact('users', 'user', 'realname', 'filename', 'path', 'extension', 'size'));
+        return view('st', compact('users', 'user', 'realname', 'filename', 'path', 'extension', 'size'));
 
     }
+
+    public function st2(Request $request)
+    {
+        $users = User::get();
+        $user = '';
+//        $filename = '';
+//        $realname = '';
+//        $extension = '';
+//        $path = '';
+//        $size = '';
+
+        if ($request->isMethod('POST')) {
+//            dd($request->file('image'));
+//            dd($request->file('image')->getClientOriginalName());
+            $user = User::find($request['users']);
+            $posts = Post::where('id_reseiver', '=', $user->id)->where('delivered', '=', 0)->get();
+
+//            $filename = $request->image;
+//            $realname = $request->file('image')->getClientOriginalName();
+//            $extension = $request->file('image')->extension();
+//            $path = $request->file('image')->store('posts');
+//            $size = Storage::size($path);
+////            dd($size, $extension);
+//            $params['id_sender'] = 1;
+//            $params['id_reseiver'] = $user->id;
+//            $params['realname'] = $realname;
+//            $params['filename'] = $path;
+//            $params['size'] = $size;
+//            $params['ext'] = $extension;
+////            $params['filename'] = $path;
+//            Post::Create($params);
+
+        }
+        return view('st2', compact('users', 'user', 'posts'));
+
+    }
+
+    public function st2show($id)
+    {
+//        dd($post);
+        $post = Post::find($id);
+        $post->update(['delivered' => 1]);
+        $realname = $post->realname;
+        $filetoshow = $post->filename;
+        $extension = $post->ext;
+//        dd('*' . $extension . '*');
+//        dd(Storage::get($filetoshow));
+        return view('st2show', compact('filetoshow', 'realname', 'extension'));
+    }
+
+    public function st2dnld($id)
+    {
+        $post = Post::find($id);
+//        dd($post);
+        return Storage::download($post->filename, $post->realname);
+    }
+
 }

@@ -16,3 +16,10 @@
 Route::match(['get','post'],'/', 'MainController@index')->name('index');
 
 Route::match(['get','post'],'/st', 'MainController@st')->name('st');
+
+Route::match(['get','post'],'/st2', 'MainController@st2')->name('st2');
+
+Route::match(['get','post'],'/st2-show/{post}', 'MainController@st2show')->name('file.show');
+
+Route::match(['get','post'],'/st2-dnld/{post}', 'MainController@st2dnld')->name('file.download');
+
